@@ -1,25 +1,19 @@
 const {Router} = require('express');
-
+const {insertPlayer, 
+        getPlayer, 
+        getPlayerById, 
+        updatePlayer, 
+        deletePlayer} = require('../controllers/controller.js')
 const routes = Router()
 
-routes.get('/jugadores', (req, res)=>{
-    res.send('Todos los jugadores')
-  })
+routes.get('/jugadores',getPlayer)
   
-routes.get('/jugadores/id', (req, res)=>{
-    res.send('Un solo jugador')
-  })
+routes.get('/jugadores/id', getPlayerById)
   
-routes.post('/jugadores', (req, res)=>{
-    res.send('LLevar')
-  })
+routes.post('/jugadores', insertPlayer)
   
-routes.put('/jugadores/id', (req, res)=>{
-    res.send('Actualizar')
-  })
+routes.put('/jugadores/id', updatePlayer)
   
-routes.delete('/jugadores/id', (req, res)=>{
-    res.send('Eliminar')
-  })
+routes.delete('/jugadores/id', deletePlayer)
 
 module.exports=routes

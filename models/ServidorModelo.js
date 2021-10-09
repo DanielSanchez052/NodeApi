@@ -9,7 +9,7 @@ class ServidorModelo{
         this.app = express()
         this.app.use(morgan('dev'))
         this.app.set('port', process.env.PORT || 3000)
-        // this.connectionDB()
+        this.connectionDB()
         // connectDB()
         this.routeRequests()
     }
