@@ -10,7 +10,8 @@ class ServidorModelo{
         this.app.use(morgan('dev'))
         this.app.set('port', process.env.PORT || 3000)
         this.connectionDB()
-        // connectDB()
+        this.callMiddlewares()
+
         this.routeRequests()
     }
 
@@ -28,6 +29,10 @@ class ServidorModelo{
         })
 
         this.routeRequests()
+    }
+
+    callMiddlewares(){
+        this.app.use((express.json()))
     }
 }
 

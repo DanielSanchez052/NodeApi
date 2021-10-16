@@ -8,12 +8,12 @@ const routes = Router()
 
 routes.get('/jugadores',getPlayer)
   
-routes.get('/jugadores/id', getPlayerById)
+routes.get('/jugadores/:id', getPlayerById)
   
 routes.post('/jugadores', insertPlayer)
   
-routes.put('/jugadores/id', updatePlayer)
+routes.put('/jugadores/:id', updatePlayer)
   
-routes.delete('/jugadores/id', deletePlayer)
+routes.delete('/jugadores/:id', deletePlayer)
 
 module.exports=routes
