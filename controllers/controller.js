@@ -1,10 +1,10 @@
 const { request, response } = require('express')
-const {addPlayer } = require('../services/services.js')
+const { PlayerService } = require('../services/services.js')
 
 const insertPlayer = async (req, res)=>{
     const {name, age, position, team, shirt, image} = req.body
     try {
-        const savedPlayer = await addPlayer({
+        const savedPlayer = await PlayerService.addPlayer({
             name, 
             age,
             position, 
@@ -20,21 +20,55 @@ const insertPlayer = async (req, res)=>{
     }
 } 
 
-const getPlayer = (req, res)=>{
-    res.json({message:"Buscar Jugador"})
+const getPlayer = async (req, res)=>{
+    try {
+        const players =await PlayerService.getPlayers()
+        res.json({data: players})
+        
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({message:"Error al procesar la solicitud", data:error})
+    }
 } 
 
-const getPlayerById = (req, res)=>{
+const getPlayerById = async (req, res)=>{
     const idUser =req.params.id
-    res.json({message:idUser})
-}
-
-const updatePlayer = (req, res)=>{
-    res.json({message:"Actualizar Jugador"})
+    try {
+        const player = await PlayerService.getPlayerById(idUser)
+        res.json(player)
+        
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({message:"Error al procesar la solicitud", data:error})
+    }
 } 
 
-const deletePlayer = (req, res)=>{
-    res.json({message:"Eliminar Jugador"})
+const updatePlayer = async (req, res)=>{
+    const { name, age, position, team, shirt, image} = req.body
+    const id = req.params.id
+    try {
+        const updatedPlayer = await PlayerService.updatePlayer(
+            id,
+            {name, age,position, team, shirt, image}
+            )
+        res.status(200).json({message:"jugador actualizado "})
+        
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({message:"Error al procesar la solicitud", data:error})
+    }
+} 
+
+const deletePlayer = async (req, res)=>{
+    const id =req.params.id
+    try {
+        const player = await PlayerService.deletePlayer(id)
+        res.json({message:"jugador eliminado "})
+        
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({message:"Error al procesar la solicitud", data:error})
+    }
 } 
 
 module.exports = {insertPlayer, 
