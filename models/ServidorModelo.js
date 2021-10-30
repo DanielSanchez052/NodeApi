@@ -2,8 +2,9 @@ const express = require('express')
 const morgan = require('morgan')
 const { connectDB } = require('../Database/connection.js')
 const routes = require('../routes/routes.js')
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('../swagger.json');
+// const swaggerUi = require('swagger-ui-express');
+// const swaggerDocument = require('../swagger.json');
+const cors = require('cors')
 require('dotenv').config()
 
 class ServidorModelo{
@@ -33,7 +34,8 @@ class ServidorModelo{
 
     callMiddlewares(){
         this.app.use((express.json()))
-        this.app.use('/api/v1/', swaggerUi.serve, swaggerUi.setup(swaggerDocument))     
+        this.app.use(cors())
+        // this.app.use('/api/v1/', swaggerUi.serve, swaggerUi.setup(swaggerDocument))     
     }
 }
 
