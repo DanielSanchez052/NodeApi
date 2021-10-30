@@ -2,6 +2,8 @@ const express = require('express')
 const morgan = require('morgan')
 const { connectDB } = require('../Database/connection.js')
 const routes = require('../routes/routes.js')
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../swagger.json');
 require('dotenv').config()
 
 class ServidorModelo{
@@ -11,8 +13,6 @@ class ServidorModelo{
         this.app.set('port', process.env.PORT || 3000)
         this.connectionDB()
         this.callMiddlewares()
-
-        this.routeRequests()
     }
 
     routeRequests(){
@@ -33,6 +33,7 @@ class ServidorModelo{
 
     callMiddlewares(){
         this.app.use((express.json()))
+        this.app.use('/api/v1/', swaggerUi.serve, swaggerUi.setup(swaggerDocument))     
     }
 }
 
